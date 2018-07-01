@@ -1,3 +1,5 @@
+.Rproj
+.DS_Store
 .Rproj.user
 .Rhistory
 .RData
@@ -15,3 +17,4 @@ driver.R
 temp-files/
 README.html
 R/problems.R
+.geojson
