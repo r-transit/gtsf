@@ -34,10 +34,10 @@ devtools::install_github('r-gtfs/gtsf')
 
 ## Example Usage 
 
-Import transit lines from the NYC Subway using `readgtfs`.
+Import transit lines from the NYC Subway using `tread`.
 
 ```{r readme-body}
-library(readgtfs)
+library(tread)
 library(gtsf)
 library(dplyr)
 

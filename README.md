@@ -16,10 +16,10 @@ You can install this package from GitHub using the devtools package:
 
 ## Example Usage
 
-Import transit lines from the NYC Subway using `readgtfs`.
+Import transit lines from the NYC Subway using `tread`.
 
 ``` r
-library(readgtfs)
+library(tread)
 library(gtsf)
 library(dplyr)
 
@@ -59,8 +59,8 @@ They can also be exported to geojson, for use elsewhere. For example:
 ``` r
 library(sf)
 st_write(NYC$sf_routes,"nyc_routes.geojson", delete_dsn = TRUE)
-#> Deleting source `/Users/tbuck/Documents/projects/to_publish/r-gtfs-git/gtsf/nyc_routes.geojson' using driver `GeoJSON'
-#> Writing layer `nyc_routes' to data source `/Users/tbuck/Documents/projects/to_publish/r-gtfs-git/gtsf/nyc_routes.geojson' using driver `GeoJSON'
+#> Deleting source `nyc_routes.geojson' failed
+#> Writing layer `nyc_routes' to data source `nyc_routes.geojson' using driver `GeoJSON'
 #> features:       25
 #> fields:         1
 #> geometry type:  Multi Line String
