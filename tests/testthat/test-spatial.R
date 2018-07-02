@@ -1,4 +1,4 @@
-library(tread)
+library(trread)
 context('Converting GTFS routes and shapes into simple feature (sf) dataframes')
 
 not_working <- function() {

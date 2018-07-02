@@ -16,6 +16,7 @@ gtfs_as_sf <- function(gtfs_obj) {
 #' @export
 #' @return an sf dataframe for gtfs routes with a multilinestring column
 #' @examples
+#' data(gtfs_obj)
 #' routes_sf <- routes_df_as_sf(gtfs_obj)
 #' plot(routes_sf[1,])
 routes_df_as_sf <- function(gtfs_obj) {
@@ -24,7 +25,7 @@ routes_df_as_sf <- function(gtfs_obj) {
                                          shape_route_service_df,
                                          by="shape_id")
 
-  lines_df <- dplyr::distinct(routes_latlong_df, route_id)
+  lines_df <- dplyr::distinct(routes_latlong_df, .data$route_id)
 
   list_of_line_tibbles <- split(routes_latlong_df, routes_latlong_df$route_id)
   list_of_multilinestrings <- lapply(list_of_line_tibbles, shapes_df_as_sfg)
@@ -42,6 +43,7 @@ routes_df_as_sf <- function(gtfs_obj) {
 #' @export
 #' @return an sf dataframe for gtfs routes with a point column
 #' @examples
+#' data(gtfs_obj)
 #' some_stops <- gtfs_obj$stops_df[sample(nrow(gtfs_obj$stops_df), 40),]
 #' some_stops_sf <- stops_df_as_sf(some_stops)
 #' plot(some_stops_sf)
@@ -70,6 +72,7 @@ shape_as_sf_linestring <- function(df) {
 #' @export
 #' @return a multilinestring simple feature geometry (sfg) for the routes
 #' @examples
+#' data(gtfs_obj)
 #' shapes_sfg <- shapes_df_as_sfg(gtfs_obj$shapes_df)
 #' plot(shapes_sfg[[1]])
 shapes_df_as_sfg <- function(df) {

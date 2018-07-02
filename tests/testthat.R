@@ -1,4 +1,4 @@
 library(testthat)
-library(gtfsr)
+library(gtsf)
 
-test_check("gtfsr")
+test_check("gtsf")

@@ -4,16 +4,8 @@
 #' @param service_ids - an optional filter for a certain service-default NULL
 #' @return shapes_routes_service_df - a dataframe in which routes, services, and shape_ids are all joined
 #' @keywords internal
-#' @examples 
-#' df <- shape_route_service(gtfs_obj)
-#' #get a summary of the number of shapes and services for a route
-#' library(magrittr)
-#' library(dplyr)
-#' routes_shapes_services <- df %>% 
-#'           group_by(route_id) %>% 
-#'           summarize(shapes = length(unique(shape_id)), 
-#'           services= length(unique(service_id)))
-#' summary(routes_shapes_services)
+#' @importFrom dplyr %>% group_by filter
+#' @importFrom rlang !! .data :=
 shape_route_service <- function(gtfs_obj, route_ids = NULL, service_ids = NULL) {
   
   stopifnot(class(gtfs_obj) == 'gtfs',
@@ -59,19 +51,19 @@ shape_route_service <- function(gtfs_obj, route_ids = NULL, service_ids = NULL) 
     }
     
     shapes_routes_df <- gtfs_obj$trips_df %>%
-      dplyr::slice(which(service_id %in% service_ids)) %>%
-      dplyr::slice(which(route_id %in% route_ids)) %>%
+      dplyr::filter(.data$service_id %in% service_ids) %>%
+      dplyr::filter(.data$route_id %in% route_ids) %>%
       dplyr::select(shape_id, route_id, service_id) %>%
-      dplyr::filter(!is.na(shape_id)) %>%
-      dplyr::distinct(., service_id, shape_id, route_id, .keep_all = TRUE) # want only distinct routes
+      dplyr::filter(!is.na(.data$shape_id)) %>%
+      dplyr::distinct(.data$service_id, .data$shape_id, .data$route_id, .keep_all = TRUE) # want only distinct routes
     
   } else {
     
     shapes_routes_df <- gtfs_obj$trips_df %>%
-      dplyr::slice(which(route_id %in% route_ids)) %>%
+      dplyr::slice(which(.data$route_id %in% route_ids)) %>%
       dplyr::select(shape_id, route_id, service_id) %>%
-      dplyr::filter(!is.na(shape_id)) %>%
-      dplyr::distinct(., service_id, shape_id, route_id, .keep_all = TRUE) # want only distinct routes
+      dplyr::filter(!is.na(.data$shape_id)) %>%
+      dplyr::distinct(.data$service_id, .data$shape_id, .data$route_id, .keep_all = TRUE) # want only distinct routes
     
   }
   
@@ -90,7 +82,7 @@ stops_for_routes <- function(g1, route_ids, select_service_ids, directional=FALS
   l1 = list()
   i <- 1
   for (route_id in route_ids) {
-    l1[[i]] <- get_stops_for_route(g1,route_id, select_service_ids)
+    l1[[i]] <- stops_for_route(g1,route_id, select_service_ids)
     i <- i + 1
   }
   df_stops <- do.call("rbind", l1)
@@ -104,13 +96,16 @@ stops_for_routes <- function(g1, route_ids, select_service_ids, directional=FALS
 #' @param route_id the id of the route
 #' @param service_id the service for which to get stops 
 #' @return shapes for a route
+#' @importFrom dplyr %>% group_by filter
+#' @importFrom rlang !! .data :=
 #' @keywords internal
 shape_for_route <- function(g1, select_route_id, select_service_id) {
   some_trips <- g1$trips_df %>%
-    filter(route_id %in% select_route_id & service_id %in% select_service_id)
+    filter(.data$route_id %in% select_route_id & 
+             .data$service_id %in% select_service_id)
   
   some_shapes <- g1$shapes_df %>% 
-    filter(shape_id %in% some_trips$shape_id) 
+    filter(.data$shape_id %in% some_trips$shape_id) 
   
   some_shapes$route_id <- select_route_id
   return(some_shapes)
@@ -128,7 +123,7 @@ shapes_for_routes <- function(g1, route_ids, select_service_ids, directional=FAL
   l1 = list()
   i <- 1
   for (route_id in route_ids) {
-    l1[[i]] <- get_shape_for_route(g1,route_id, select_service_ids)
+    l1[[i]] <- shape_for_route(g1,route_id, select_service_ids)
     i <- i + 1
   }
   df_routes <- do.call("rbind", l1)
