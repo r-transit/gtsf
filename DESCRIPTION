@@ -2,12 +2,12 @@ Package: gtsf
 Type: Package
 Title: General Transit Simple Features
 Version: 0.1.0
-Authors@R: as.person(c(
-    "Tom Buckley <buckley.tom@gmail.com> [aut,cre]",
-    "Danton Noriega-Goodwin <danton.noriega@gmail.com> [aut]",
-    "Michael Sumner [aut]"
-  ))
-Description: Functions to get simple features from general transit feed data. For example, make a simple features data frame of the route lines, or route stops, that vehicles traverse as part of their schedule.   
+Authors@R: c(
+    person("Tom", "Buckley", role = c("aut", "cre"), email = "tom@tbuckl.com"),
+    person("Danton", "Noriega-Goodwin", role = c("aut"), email="danton.noriega@gmail.com"),
+    person("Michael", "Sumner", role = c("aut"))
+  )
+Description: Get simple features from general transit feed data. For example, make a simple features data frame of the route lines, or route stops, that vehicles traverse as part of their schedule.   
 License: GPL
 LazyData: TRUE
 Depends: R (>= 3.2.4)
