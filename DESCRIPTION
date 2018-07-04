@@ -25,7 +25,6 @@ Suggests:
     knitr,
     rmarkdown
 RoxygenNote: 6.0.1
-VignetteBuilder: knitr
 URL: https://github.com/r-gtfs/gtsf
 BugReports: https://github.com/r-gtfs/gtsf/issues
 Roxygen: list(markdown = TRUE)
