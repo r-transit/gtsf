@@ -1,3 +1,4 @@
+[![Travis-CI Build Status](https://travis-ci.com/r-gtfs/gtsf.svg?branch=master)](https://travis-ci.com/r-gtfs/gtsf)
 
 ## Description
 
