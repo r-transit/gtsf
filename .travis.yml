@@ -1,78 +1,50 @@
-#copied verbatim from the sf package
+#copied verbatim from osmdata 
 
 language: r
-
-r:
-  - release
-  - devel
-  - oldrel
-
+warnings_are_errors: true
 sudo: required
-dist: trusty
-cache:
-  - packages
-  - ccache
-latex: false
+cache: packages
+#group: edge # https://blog.travis-ci.com/2017-06-19-trusty-updates-2017-Q2
 
-r_github_packages:
-  - r-dbi/DBI
-  - r-dbi/RPostgres
+# precise fails because unmet deps in libgdal-dev can not be installed
 
-addons:
-  postgresql: "9.6"
-  apt:
-    sources:
-      - sourceline: 'ppa:opencpu/jq'
-      - sourceline: 'ppa:ubuntugis/ubuntugis-unstable'
-      - sourceline: 'deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main'
-        key_url: 'https://www.postgresql.org/media/keys/ACCC4CF8.asc'
-    packages:
-      - libprotobuf-dev
-      - protobuf-compiler
-      - libv8-3.14-dev
-      - libjq-dev
-      - libudunits2-dev
-      - libproj-dev
-      - libgeos-dev
-      - libspatialite-dev
-      - libgdal-dev
-      - libjson-c-dev
-      - postgresql-server-dev-9.6
+matrix:
+    allow_failures: # temporarily enabled. TODO: disable
+        -os: osx
+    include:
+        - os: linux
+          r: release
+          dist: trusty # 14.04
+          env: R_CODECOV=true
+        - os: linux
+          r: devel
+          dist: trusty
+        - os: linux
+          r: oldrel
+          dist: trusty
+        - os: osx
+          r: release
+          before_install: ''
+          disable_homebrew: true
+          #- os: osx
+          #r: devel
+          #before_install: ''
+          #disable_homebrew: true
 
 before_install:
-  # install postgis from source:
-  - wget http://download.osgeo.org/postgis/source/postgis-2.3.2.tar.gz
-  - (mv postgis* /tmp; cd /tmp; tar xzf postgis-2.3.2.tar.gz)
-  - (cd /tmp/postgis-2.3.2 ; ./configure; make; sudo make install)
+    - sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable --yes
+    - sudo apt-get --yes --force-yes update -qq
+    - sudo apt-get install --yes libproj-dev libgeos-dev libgdal-dev libudunits2-dev
 
-  # activate liblwgeom by:
-  - sudo ldconfig
-  # create postgis databases:
-  - sudo service postgresql restart
-  - createdb postgis
-  - psql -d postgis -c "CREATE EXTENSION postgis;"
-  - psql -d postgis -c "GRANT CREATE ON DATABASE postgis TO travis"
-  - psql -d postgis -c "GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO travis"
-  - createdb empty
-  - psql -d empty -c "CREATE EXTENSION postgis;"
-  - R -q -e 'install.packages("devtools"); devtools::install_github("ropenscilabs/tic@4ad0920c425c0e66809a1ae23837655f4dca997d"); tic::prepare_all_stages()'
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
+r_packages:
+    - devtools
+r_github_packages:
+      - jimhester/covr
 
 after_success:
-  - dropdb postgis
-  - createdb postgis
-  - psql -d postgis -c "CREATE EXTENSION postgis;"
-  - psql -d postgis -c "GRANT CREATE ON DATABASE postgis TO travis"
-  - R -q -e 'covr::codecov(quiet = FALSE)'
-
-install: R -q -e 'tic::install()'
-script: R -q -e 'tic::script()'
-before_deploy: R -q -e 'tic::before_deploy()'
-deploy:
-   provider: script
-   script: R -q -e 'tic::deploy()'
-   on:
-     branch: master
-     condition:
-       - $TRAVIS_PULL_REQUEST = false
-       - $TRAVIS_EVENT_TYPE != cron
-       - $TRAVIS_R_VERSION_STRING = devel
+    - Rscript -e "covr::codecov(line_exclusions = list('src/rapidxml.h','src/rapidxml_print.h'))"
