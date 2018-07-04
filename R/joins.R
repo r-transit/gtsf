@@ -53,7 +53,7 @@ shape_route_service <- function(gtfs_obj, route_ids = NULL, service_ids = NULL) 
     shapes_routes_df <- gtfs_obj$trips_df %>%
       dplyr::filter(.data$service_id %in% service_ids) %>%
       dplyr::filter(.data$route_id %in% route_ids) %>%
-      dplyr::select(shape_id, route_id, service_id) %>%
+      dplyr::select_('shape_id', 'route_id', 'service_id') %>%
       dplyr::filter(!is.na(.data$shape_id)) %>%
       dplyr::distinct(.data$service_id, .data$shape_id, .data$route_id, .keep_all = TRUE) # want only distinct routes
     
@@ -61,7 +61,7 @@ shape_route_service <- function(gtfs_obj, route_ids = NULL, service_ids = NULL) 
     
     shapes_routes_df <- gtfs_obj$trips_df %>%
       dplyr::slice(which(.data$route_id %in% route_ids)) %>%
-      dplyr::select(shape_id, route_id, service_id) %>%
+      dplyr::select_('shape_id', 'route_id', 'service_id') %>%
       dplyr::filter(!is.na(.data$shape_id)) %>%
       dplyr::distinct(.data$service_id, .data$shape_id, .data$route_id, .keep_all = TRUE) # want only distinct routes
     
@@ -87,6 +87,27 @@ stops_for_routes <- function(g1, route_ids, select_service_ids, directional=FALS
   }
   df_stops <- do.call("rbind", l1)
   return(df_stops)
+}
+
+#' Get a set of stops for a route
+#' 
+#' @param a dataframe output by join_mega_and_hf_routes()
+#' @param route_id the id of the route
+#' @param service_id the service for which to get stops 
+#' @return stops for a route
+#' @keywords internal
+stops_for_route <- function(g1, select_route_id, select_service_id) {
+  some_trips <- g1$trips_df %>%
+    filter(.data$route_id %in% select_route_id & .data$service_id %in% select_service_id)
+  
+  some_stop_times <- g1$stop_times_df %>% 
+    filter(.data$trip_id %in% some_trips$trip_id) 
+  
+  some_stops <- g1$stops_df %>%
+    filter(.data$stop_id %in% some_stop_times$stop_id)
+  
+  some_stops$route_id <- select_route_id
+  return(some_stops)
 }
 
 #' Get a set of shapes for a route

@@ -15,7 +15,6 @@ Imports:
     dplyr,
     sf,
     rlang,
-    tread,
     tibble,
     readr,
     magrittr,
