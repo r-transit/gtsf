@@ -17,10 +17,10 @@ You can install this package from GitHub using the devtools package:
 
 ## Example Usage
 
-Import transit lines from the NYC Subway using `tread`.
+Import transit lines from the NYC Subway using `trread`.
 
 ``` r
-library(tread)
+library(trread)
 library(gtsf)
 library(dplyr)
 
