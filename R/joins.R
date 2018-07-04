@@ -71,7 +71,8 @@ shape_route_service <- function(gtfs_obj, route_ids = NULL, service_ids = NULL) 
   
 }
 
-#` Get a set of stops for a set of routes
+#' Get a set of stops for a set of routes
+#'
 #' @param a dataframe output by join_mega_and_hf_routes()
 #' @param route_ids the ids of the routes
 #' @param service_id the service for which to get stops 
