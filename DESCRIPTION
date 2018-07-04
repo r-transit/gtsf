@@ -1,13 +1,13 @@
 Package: gtsf
 Type: Package
-Title: Simple Features (sf) for Transit (GTFS) Data 
+Title: General Transit Simple Features
 Version: 0.1.0
 Authors@R: as.person(c(
     "Tom Buckley <buckley.tom@gmail.com> [aut,cre]",
     "Danton Noriega-Goodwin <danton.noriega@gmail.com> [aut]",
     "Michael Sumner [aut]"
   ))
-Description: Functions to get simple features (points,lines) from GTFS data.  
+Description: Functions to get simple features from general transit feed data. For example, make a simple features data frame of the route lines, or route stops, that vehicles traverse as part of their schedule.   
 License: GPL
 LazyData: TRUE
 Depends: R (>= 3.2.4)
