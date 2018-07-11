@@ -9,3 +9,9 @@ test_that('Can convert a gtfsr routes dataframe to a simple features dataframe',
 test_that('Can convert a gtfsr stops dataframe to a simple features dataframe', {
   expect_is(stops_df_as_sf(gtfs_obj$stops_df), 'sf')
 })
+
+test_that('Can filter on route id', {
+  routes <- c(1681,1683)
+  tworoutes <- gtsf::routes_df_as_sf(gtfs_obj,route_ids=routes)
+  expect_equal(dim(tworoutes)[1],2)
+})
