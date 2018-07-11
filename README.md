@@ -1,4 +1,5 @@
 [![Travis-CI Build Status](https://travis-ci.com/r-gtfs/gtsf.svg?branch=master)](https://travis-ci.com/r-gtfs/gtsf)
+[![cran version](https://www.r-pkg.org/badges/version/gtsf)](https://cran.r-project.org/package=gtsf)
 
 ## Description
 
