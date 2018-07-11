@@ -19,8 +19,8 @@ gtfs_as_sf <- function(gtfs_obj) {
 #' data(gtfs_obj)
 #' routes_sf <- routes_df_as_sf(gtfs_obj)
 #' plot(routes_sf[1,])
-routes_df_as_sf <- function(gtfs_obj) {
-  shape_route_service_df <- shape_route_service(gtfs_obj)
+routes_df_as_sf <- function(gtfs_obj, route_ids = NULL, service_ids = NULL) {
+  shape_route_service_df <- shape_route_service(gtfs_obj, route_ids = NULL, service_ids = NULL)
   routes_latlong_df <- dplyr::inner_join(gtfs_obj$shapes_df,
                                          shape_route_service_df,
                                          by="shape_id")
