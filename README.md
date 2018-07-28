@@ -4,8 +4,9 @@
 ## Description
 
 `gtsf` is an R package for using GTFS data as [simple
-features](https://en.wikipedia.org/wiki/Simple_Features). You can also
-use it to make shapefiles and geojson from GTFS data.
+features](https://en.wikipedia.org/wiki/Simple_Features). 
+
+You can also use it to help you make maps, shapefiles and geojson from GTFS data.
 
 ## Installation
 
