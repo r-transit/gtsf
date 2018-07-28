@@ -1,4 +1,4 @@
-[![Travis-CI Build Status](https://travis-ci.com/r-gtfs/gtsf.svg?branch=master)](https://travis-ci.com/r-gtfs/gtsf)
+[![Travis-CI Build Status](https://travis-ci.com/r-transit/gtsf.svg?branch=master)](https://travis-ci.com/r-transit/gtsf)
 [![cran version](https://www.r-pkg.org/badges/version/gtsf)](https://cran.r-project.org/package=gtsf)
 
 ## Description
@@ -9,7 +9,13 @@ use it to make shapefiles and geojson from GTFS data.
 
 ## Installation
 
-You can install this package from GitHub using the devtools package:
+You can install this package from CRAN:
+
+`install.packages("gtsf")`
+
+### Development
+
+You can also install this package from GitHub using the devtools package:
 
     if (!require(devtools)) {
         install.packages('devtools')
