@@ -13,3 +13,4 @@
 ^CONDUCT\.md$
 ^docs$
 ^_pkgdown\.yml$
+^data-raw/

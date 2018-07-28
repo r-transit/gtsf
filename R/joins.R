@@ -71,46 +71,6 @@ shape_route_service <- function(gtfs_obj, route_ids = NULL, service_ids = NULL) 
   
 }
 
-#' Get a set of stops for a set of routes
-#'
-#' @param a dataframe output by join_mega_and_hf_routes()
-#' @param route_ids the ids of the routes
-#' @param service_id the service for which to get stops 
-#' @param directional if the stops should by related to a route direction (e.g. inbound, outbound) - currently not implemented
-#' @return stops for routes
-#' @keywords internal
-stops_for_routes <- function(g1, route_ids, select_service_ids, directional=FALSE) {
-  l1 = list()
-  i <- 1
-  for (route_id in route_ids) {
-    l1[[i]] <- stops_for_route(g1,route_id, select_service_ids)
-    i <- i + 1
-  }
-  df_stops <- do.call("rbind", l1)
-  return(df_stops)
-}
-
-#' Get a set of stops for a route
-#' 
-#' @param a dataframe output by join_mega_and_hf_routes()
-#' @param route_id the id of the route
-#' @param service_id the service for which to get stops 
-#' @return stops for a route
-#' @keywords internal
-stops_for_route <- function(g1, select_route_id, select_service_id) {
-  some_trips <- g1$trips_df %>%
-    filter(.data$route_id %in% select_route_id & .data$service_id %in% select_service_id)
-  
-  some_stop_times <- g1$stop_times_df %>% 
-    filter(.data$trip_id %in% some_trips$trip_id) 
-  
-  some_stops <- g1$stops_df %>%
-    filter(.data$stop_id %in% some_stop_times$stop_id)
-  
-  some_stops$route_id <- select_route_id
-  return(some_stops)
-}
-
 #' Get a set of shapes for a route
 #' 
 #'

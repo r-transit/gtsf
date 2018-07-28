@@ -4,7 +4,7 @@
 \alias{routes_df_as_sf}
 \title{Get a \code{sf} dataframe for gtfs routes}
 \usage{
-routes_df_as_sf(gtfs_obj)
+routes_df_as_sf(gtfs_obj, route_ids = NULL, service_ids = NULL)
 }
 \arguments{
 \item{gtfs_obj}{gtfsr object}
