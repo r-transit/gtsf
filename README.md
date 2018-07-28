@@ -9,7 +9,13 @@ use it to make shapefiles and geojson from GTFS data.
 
 ## Installation
 
-You can install this package from GitHub using the devtools package:
+You can install this package from CRAN:
+
+`install.packages("gtsf")`
+
+### Development
+
+You can also install this package from GitHub using the devtools package:
 
     if (!require(devtools)) {
         install.packages('devtools')
