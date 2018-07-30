@@ -8,6 +8,10 @@ routes_df_as_sf(gtfs_obj, route_ids = NULL, service_ids = NULL)
 }
 \arguments{
 \item{gtfs_obj}{gtfsr object}
+
+\item{route_ids}{select routes to convert to simple features}
+
+\item{service_ids}{select service_ids to convert to simple features}
 }
 \value{
 an sf dataframe for gtfs routes with a multilinestring column

@@ -13,6 +13,8 @@ gtfs_as_sf <- function(gtfs_obj) {
 #' Get a `sf` dataframe for gtfs routes
 #'
 #' @param gtfs_obj gtfsr object
+#' @param route_ids select routes to convert to simple features
+#' @param service_ids select service_ids to convert to simple features
 #' @export
 #' @return an sf dataframe for gtfs routes with a multilinestring column
 #' @examples
