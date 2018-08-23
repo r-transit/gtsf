@@ -1,3 +1,8 @@
+NOTE: deprecated, functionality moved to: https://github.com/r-transit/tidytransit
+
+You can still use this but its not under development for now. 
+
+
 [![Travis-CI Build Status](https://travis-ci.com/r-transit/gtsf.svg?branch=master)](https://travis-ci.com/r-transit/gtsf)
 [![cran version](https://www.r-pkg.org/badges/version/gtsf)](https://cran.r-project.org/package=gtsf)
 
